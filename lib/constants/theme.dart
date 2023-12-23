@@ -14,5 +14,5 @@ TextStyle regulerText =
     GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500);
 TextStyle smallText =
     GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w400);
-TextStyle subtitleText =
-    GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.w500);
+TextStyle subtitleText = GoogleFonts.poppins(
+    fontSize: 10, fontWeight: FontWeight.w500, color: greyColor);

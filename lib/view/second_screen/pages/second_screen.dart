@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:palindrome_app/constants/theme.dart';
 import 'package:palindrome_app/view/second_screen/widget/welcome_widget.dart';
+import 'package:palindrome_app/view/third_screen/pages/third_screen.dart';
 import 'package:palindrome_app/widget/main_bottom.dart';
 
 class SecondScreen extends StatefulWidget {
@@ -56,7 +57,12 @@ class _SecondScreenState extends State<SecondScreen> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(32),
-        child: MainBottom(text: "Choose a User", onPressed: () {}),
+        child: MainBottom(
+            text: "Choose a User",
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ThirdScreen()));
+            }),
       ),
     );
   }
