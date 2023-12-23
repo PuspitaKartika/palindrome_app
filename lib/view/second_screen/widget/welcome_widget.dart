@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:palindrome_app/constants/theme.dart';
 
 class WelcomeWidget extends StatelessWidget {
-  const WelcomeWidget({super.key});
+  final String name;
+  const WelcomeWidget({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class WelcomeWidget extends StatelessWidget {
           style: smallText,
         ),
         Text(
-          "John Doe",
+          name,
           style: titleH2,
         ),
       ],

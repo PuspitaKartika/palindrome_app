@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:palindrome_app/bloc/polindrome/polindrome_cubit.dart';
+import 'package:palindrome_app/constants/theme.dart';
 import 'package:palindrome_app/view/second_screen/pages/second_screen.dart';
 import 'package:palindrome_app/widget/custom_text_field.dart';
 import 'package:palindrome_app/widget/main_bottom.dart';
@@ -13,10 +16,16 @@ class FirstScreen extends StatefulWidget {
 class _FirstScreenState extends State<FirstScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController polindromeController = TextEditingController();
+  String? nameError;
   @override
   void dispose() {
     super.dispose();
     nameController.dispose();
+    polindromeController.dispose();
+  }
+
+  void reset() {
+    polindromeController.clear();
   }
 
   @override
@@ -34,7 +43,11 @@ class _FirstScreenState extends State<FirstScreen> {
           const SizedBox(
             height: 51,
           ),
-          CustomTextField(text: "Name", controller: nameController),
+          CustomTextField(
+            text: "Name",
+            controller: nameController,
+            errorText: nameError,
+          ),
           const SizedBox(
             height: 22,
           ),
@@ -42,20 +55,71 @@ class _FirstScreenState extends State<FirstScreen> {
           const SizedBox(
             height: 45,
           ),
-          MainBottom(onPressed: () {}, text: "CHECK"),
+          BlocListener<PolindromeCubit, PolindromeState>(
+              listener: (context, state) {
+                if (state is PolindromeSuccess) {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            content: Container(
+                                padding: const EdgeInsets.all(16),
+                                child: Text(
+                                  state.msg,
+                                  style: titleH3,
+                                )),
+                          ));
+                  reset();
+                } else if (state is PolindromeFailure) {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                          content: Container(
+                              padding: const EdgeInsets.all(16),
+                              child: Text(
+                                state.msg,
+                                style: titleH3,
+                              ))));
+                  reset();
+                }
+              },
+              child: MainBottom(
+                  onPressed: () {
+                    context
+                        .read<PolindromeCubit>()
+                        .checkPalindrome(polindromeController.text);
+                  },
+                  text: "CHECK")),
           const SizedBox(
             height: 15,
           ),
           MainBottom(
               onPressed: () {
+                if (validate()) {
+                  return;
+                }
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SecondScreen()));
+                        builder: (context) => SecondScreen(
+                              name: nameController.text,
+                            )));
               },
               text: "NEXT"),
         ],
       ),
     ));
+  }
+
+  bool validate() {
+    bool isError = false;
+    setState(() {
+      nameError = null;
+
+      if (nameController.text == "") {
+        nameError = "Name cannot empty";
+        isError = true;
+      }
+    });
+    return isError;
   }
 }

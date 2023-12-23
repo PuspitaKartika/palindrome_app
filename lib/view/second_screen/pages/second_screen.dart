@@ -5,7 +5,8 @@ import 'package:palindrome_app/view/third_screen/pages/third_screen.dart';
 import 'package:palindrome_app/widget/main_bottom.dart';
 
 class SecondScreen extends StatefulWidget {
-  const SecondScreen({super.key});
+  final String name;
+  const SecondScreen({super.key, required this.name});
 
   @override
   State<SecondScreen> createState() => _SecondScreenState();
@@ -43,7 +44,9 @@ class _SecondScreenState extends State<SecondScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const WelcomeWidget(),
+            WelcomeWidget(
+              name: widget.name,
+            ),
             Expanded(
               child: Center(
                 child: Text(
