@@ -4,15 +4,11 @@ import 'package:palindrome_app/view/second_screen/widget/welcome_widget.dart';
 import 'package:palindrome_app/view/third_screen/pages/third_screen.dart';
 import 'package:palindrome_app/widget/main_bottom.dart';
 
-class SecondScreen extends StatefulWidget {
+class SecondScreen extends StatelessWidget {
   final String name;
-  const SecondScreen({super.key, required this.name});
+  final String? selected;
+  const SecondScreen({super.key, required this.name, this.selected});
 
-  @override
-  State<SecondScreen> createState() => _SecondScreenState();
-}
-
-class _SecondScreenState extends State<SecondScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,15 +41,14 @@ class _SecondScreenState extends State<SecondScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             WelcomeWidget(
-              name: widget.name,
+              name: name,
             ),
             Expanded(
               child: Center(
-                child: Text(
-                  "Selected User Name",
-                  style: titleH1,
-                ),
-              ),
+                  child: Text(
+                selected ?? "Selected User Name",
+                style: titleH1,
+              )),
             )
           ],
         ),
@@ -63,8 +58,12 @@ class _SecondScreenState extends State<SecondScreen> {
         child: MainBottom(
             text: "Choose a User",
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ThirdScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ThirdScreen(
+                            name: name,
+                          )));
             }),
       ),
     );

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:palindrome_app/constants/theme.dart';
 import 'package:palindrome_app/models/user_model.dart';
 import 'package:palindrome_app/repositories/user_repo.dart';
+import 'package:palindrome_app/view/second_screen/pages/second_screen.dart';
 import 'package:simple_infinite_scroll/simple_infinite_scroll.dart';
 import 'package:simple_infinite_scroll/simple_infinite_scroll_controller.dart';
 
 class ThirdScreen extends StatelessWidget {
-  ThirdScreen({super.key});
+  final String name;
+  ThirdScreen({super.key, required this.name});
 
   final scrollController = ScrollController();
 
@@ -51,7 +53,16 @@ class ThirdScreen extends StatelessWidget {
               return Column(
                 children: [
                   ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SecondScreen(
+                                    name: name,
+                                    selected:
+                                        "${item.firstName} ${item.lastName}",
+                                  )));
+                    },
                     leading: ClipOval(
                       child: Image.network(
                         item.avatar ?? "",
