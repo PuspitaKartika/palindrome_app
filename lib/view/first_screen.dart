@@ -17,6 +17,7 @@ class _FirstScreenState extends State<FirstScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController polindromeController = TextEditingController();
   String? nameError;
+  String? polindromeError;
   @override
   void dispose() {
     super.dispose();
@@ -51,7 +52,11 @@ class _FirstScreenState extends State<FirstScreen> {
           const SizedBox(
             height: 22,
           ),
-          CustomTextField(text: "Palindrome", controller: polindromeController),
+          CustomTextField(
+            text: "Palindrome",
+            controller: polindromeController,
+            errorText: polindromeError,
+          ),
           const SizedBox(
             height: 45,
           ),
@@ -84,6 +89,9 @@ class _FirstScreenState extends State<FirstScreen> {
               },
               child: MainBottom(
                   onPressed: () {
+                    if (validatePolindrome()) {
+                      return;
+                    }
                     context
                         .read<PolindromeCubit>()
                         .checkPalindrome(polindromeController.text);
@@ -117,6 +125,19 @@ class _FirstScreenState extends State<FirstScreen> {
 
       if (nameController.text == "") {
         nameError = "Name cannot empty";
+        isError = true;
+      }
+    });
+    return isError;
+  }
+
+  bool validatePolindrome() {
+    bool isError = false;
+    setState(() {
+      polindromeError = null;
+
+      if (polindromeController.text == "") {
+        polindromeError = "Cannot empty";
         isError = true;
       }
     });
