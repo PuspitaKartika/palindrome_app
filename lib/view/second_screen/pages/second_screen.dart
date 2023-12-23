@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:palindrome_app/constants/theme.dart';
+import 'package:palindrome_app/view/first_screen.dart';
 import 'package:palindrome_app/view/second_screen/widget/welcome_widget.dart';
 import 'package:palindrome_app/view/third_screen/pages/third_screen.dart';
 import 'package:palindrome_app/widget/main_bottom.dart';
@@ -15,7 +16,8 @@ class SecondScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const FirstScreen()));
             },
             icon: Icon(
               Icons.arrow_back_ios,
