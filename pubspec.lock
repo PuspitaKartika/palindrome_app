@@ -267,6 +267,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.1"
+  simple_infinite_scroll:
+    dependency: "direct main"
+    description:
+      name: simple_infinite_scroll
+      sha256: "2905646ce07d674301562826729da699eadc0d5bf16380409007b7646821159b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   sky_engine:
     dependency: transitive
     description: flutter

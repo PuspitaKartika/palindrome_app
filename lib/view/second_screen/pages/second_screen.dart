@@ -64,7 +64,7 @@ class _SecondScreenState extends State<SecondScreen> {
             text: "Choose a User",
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const ThirdScreen()));
+                  MaterialPageRoute(builder: (context) => ThirdScreen()));
             }),
       ),
     );
