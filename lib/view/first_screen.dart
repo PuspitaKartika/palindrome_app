@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:palindrome_app/view/second_screen/pages/second_screen.dart';
 import 'package:palindrome_app/widget/custom_text_field.dart';
 import 'package:palindrome_app/widget/main_bottom.dart';
 
@@ -45,7 +46,14 @@ class _FirstScreenState extends State<FirstScreen> {
           const SizedBox(
             height: 15,
           ),
-          MainBottom(onPressed: () {}, text: "NEXT"),
+          MainBottom(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SecondScreen()));
+              },
+              text: "NEXT"),
         ],
       ),
     ));
